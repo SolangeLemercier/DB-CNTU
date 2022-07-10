@@ -129,8 +129,8 @@ ALTER SEQUENCE public.memberships_id_seq OWNED BY public.memberships.id;
 
 CREATE TABLE public.system_users (
     info_id integer NOT NULL,
-    login character varying(255) NOT NULL,
-    password character varying(255) NOT NULL,
+    username character varying(255) NOT NULL,
+    password_hash character varying(255) NOT NULL,
     email character varying(255) NOT NULL
 );
 
@@ -143,7 +143,7 @@ ALTER TABLE public.system_users OWNER TO postgres;
 
 CREATE TABLE public.visits (
     id integer NOT NULL,
-    person_id integer NOT NULL,
+    visitor_id integer NOT NULL,
     came_at timestamp without time zone DEFAULT now() NOT NULL,
     left_at timestamp without time zone
 );
@@ -255,7 +255,7 @@ COPY public.memberships (id, title, price, duration, instructor_id) FROM stdin;
 -- Data for Name: system_users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.system_users (info_id, login, password, email) FROM stdin;
+COPY public.system_users (info_id, username, password_hash, email) FROM stdin;
 4	Romashka	qwerty123	jenya_shash21@gmail.com
 9	Berezka	123123	tsvet_proz11@gmail.com
 \.
@@ -265,7 +265,7 @@ COPY public.system_users (info_id, login, password, email) FROM stdin;
 -- Data for Name: visits; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.visits (id, person_id, came_at, left_at) FROM stdin;
+COPY public.visits (id, visitor_id, came_at, left_at) FROM stdin;
 1	2	2022-03-06 15:55:52.495514	2022-03-06 16:09:45.625473
 2	3	2022-05-03 08:38:43.187857	\N
 4	5	2022-05-03 09:26:27.321932	\N
@@ -329,7 +329,7 @@ ALTER TABLE ONLY public.memberships
 --
 
 ALTER TABLE ONLY public.system_users
-    ADD CONSTRAINT users_login_key UNIQUE (login);
+    ADD CONSTRAINT users_login_key UNIQUE (username);
 
 
 --
@@ -385,7 +385,7 @@ ALTER TABLE ONLY public.system_users
 --
 
 ALTER TABLE ONLY public.visits
-    ADD CONSTRAINT visits_person_id_fkey FOREIGN KEY (person_id) REFERENCES public.info_main(id);
+    ADD CONSTRAINT visits_person_id_fkey FOREIGN KEY (visitor_id) REFERENCES public.info_main(id);
 
 
 --
