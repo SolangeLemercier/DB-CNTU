@@ -59,9 +59,9 @@ COPY public.members (info_id, membership_id, expires_at) FROM stdin;
 -- Data for Name: system_users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.system_users (id, username, password_hash, email) FROM stdin;
-1	Romashka	05e232f70dddfc2f3163220ab688f96ceb919239	jenya_shash21@gmail.com
-2	Berezka	6b8b570c56e29d5bd77edfacb7ae807072b46b76	tsvet_proz11@gmail.com
+COPY public.system_users (id, username, email, password_hash) FROM stdin;
+1	Romashka	jenya_shash21@gmail.com	 05e232f70dddfc2f3163220ab688f96ceb919239
+2	Berezka	tsvet_proz11@gmail.com	6b8b570c56e29d5bd77edfacb7ae807072b46b76
 \.
 
 
