@@ -128,7 +128,7 @@ ALTER SEQUENCE public.memberships_id_seq OWNED BY public.memberships.id;
 --
 
 CREATE TABLE public.system_users (
-    info_id integer NOT NULL,
+    id integer NOT NULL,
     username character varying(255) NOT NULL,
     password_hash character varying(255) NOT NULL,
     email character varying(255) NOT NULL
@@ -136,6 +136,28 @@ CREATE TABLE public.system_users (
 
 
 ALTER TABLE public.system_users OWNER TO postgres;
+
+--
+-- Name: system_users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.system_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.system_users_id_seq OWNER TO postgres;
+
+--
+-- Name: system_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.system_users_id_seq OWNED BY public.system_users.id;
+
 
 --
 -- Name: visits; Type: TABLE; Schema: public; Owner: postgres
@@ -185,6 +207,13 @@ ALTER TABLE ONLY public.info_main ALTER COLUMN id SET DEFAULT nextval('public.in
 --
 
 ALTER TABLE ONLY public.memberships ALTER COLUMN id SET DEFAULT nextval('public.memberships_id_seq'::regclass);
+
+
+--
+-- Name: system_users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_users ALTER COLUMN id SET DEFAULT nextval('public.system_users_id_seq'::regclass);
 
 
 --
@@ -255,9 +284,9 @@ COPY public.memberships (id, title, price, duration, instructor_id) FROM stdin;
 -- Data for Name: system_users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.system_users (info_id, username, password_hash, email) FROM stdin;
-4	Romashka	qwerty123	jenya_shash21@gmail.com
-9	Berezka	123123	tsvet_proz11@gmail.com
+COPY public.system_users (id, username, password_hash, email) FROM stdin;
+1	Romashka	05e232f70dddfc2f3163220ab688f96ceb919239	jenya_shash21@gmail.com
+2	Berezka	6b8b570c56e29d5bd77edfacb7ae807072b46b76	tsvet_proz11@gmail.com
 \.
 
 
@@ -294,6 +323,13 @@ SELECT pg_catalog.setval('public.memberships_id_seq', 7, true);
 
 
 --
+-- Name: system_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.system_users_id_seq', 2, true);
+
+
+--
 -- Name: visits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -322,6 +358,14 @@ ALTER TABLE ONLY public.info_main
 
 ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT memberships_id_key UNIQUE (id);
+
+
+--
+-- Name: system_users system_users_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_users
+    ADD CONSTRAINT system_users_id_key UNIQUE (id);
 
 
 --
@@ -370,14 +414,6 @@ ALTER TABLE ONLY public.members
 
 ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT memberships_instructor_id_fkey FOREIGN KEY (instructor_id) REFERENCES public.info_main(id);
-
-
---
--- Name: system_users users_info_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.system_users
-    ADD CONSTRAINT users_info_id_fkey FOREIGN KEY (info_id) REFERENCES public.info_main(id);
 
 
 --

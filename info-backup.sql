@@ -60,8 +60,8 @@ COPY public.members (info_id, membership_id, expires_at) FROM stdin;
 --
 
 COPY public.system_users (id, username, password_hash, email) FROM stdin;
-1	Romashka	qwerty123	jenya_shash21@gmail.com
-2	Berezka	123123	tsvet_proz11@gmail.com
+1	Romashka	05e232f70dddfc2f3163220ab688f96ceb919239	jenya_shash21@gmail.com
+2	Berezka	6b8b570c56e29d5bd77edfacb7ae807072b46b76	tsvet_proz11@gmail.com
 \.
 
 
