@@ -1,4 +1,4 @@
 # Test-db
-Тестовые данные для REST API.
+Test data for REST API.
 
-См. репозиторий <a href="https://github.com/igorgofman/gms-app">gms-app</a>.
+See repository <a href="https://github.com/igorgofman/gms-app">gms-app</a>.
